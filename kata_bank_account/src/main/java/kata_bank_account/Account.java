@@ -1,6 +1,5 @@
 package kata_bank_account;
 
-// Account.java
 public class Account {
     protected float balance;
     protected int numDeposits;
@@ -11,28 +10,27 @@ public class Account {
     public Account(float initialBalance, float annualInterestRate) {
         this.balance = initialBalance;
         this.annualInterestRate = annualInterestRate;
-        this.numDeposits = 0;
-        this.numWithdrawals = 0;
         this.monthlyFee = 0;
     }
 
     public void deposit(float amount) {
-        balance += amount;
-        numDeposits++;
+        if (amount > 0) {
+            balance += amount;
+            numDeposits++;
+        }
     }
 
     public void withdraw(float amount) {
-        if (amount <= balance) {
+        if (amount > 0 && amount <= balance) {
             balance -= amount;
             numWithdrawals++;
-        } else {
-            System.out.println("Cannot withdraw an amount greater than the available balance.");
         }
     }
 
     public void calculateMonthlyInterest() {
-        float monthlyInterest = (balance * (annualInterestRate / 12)) / 100;
-        balance += monthlyInterest;
+        float monthlyInterestRate = annualInterestRate / 12 / 100;
+        float interest = balance * monthlyInterestRate;
+        balance += interest;
     }
 
     public void monthlyStatement() {
@@ -41,10 +39,7 @@ public class Account {
     }
 
     public String print() {
-        return "Balance: " + balance + "\n" +
-               "Deposits: " + numDeposits + "\n" +
-               "Withdrawals: " + numWithdrawals + "\n" +
-               "Annual Interest Rate: " + annualInterestRate + "%\n" +
-               "Monthly Fee: " + monthlyFee;
+        return String.format("Balance: %.2f\nDeposits: %d\nWithdrawals: %d\nAnnual Interest Rate: %.2f%%\nMonthly Fee: %.2f",
+                             balance, numDeposits, numWithdrawals, annualInterestRate, monthlyFee);
     }
 }

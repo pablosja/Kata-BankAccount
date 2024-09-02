@@ -1,7 +1,7 @@
 package kata_bank_account;
 
 public class SavingsAccount extends Account {
-    private boolean accountActive;
+    boolean accountActive;
 
     public SavingsAccount(float initialBalance, float annualInterestRate) {
         super(initialBalance, annualInterestRate);
@@ -12,8 +12,6 @@ public class SavingsAccount extends Account {
     public void deposit(float amount) {
         if (accountActive) {
             super.deposit(amount);
-        } else {
-            System.out.println("Cannot deposit into an inactive account.");
         }
     }
 
@@ -21,8 +19,6 @@ public class SavingsAccount extends Account {
     public void withdraw(float amount) {
         if (accountActive) {
             super.withdraw(amount);
-        } else {
-            System.out.println("Cannot withdraw from an inactive account.");
         }
     }
 
